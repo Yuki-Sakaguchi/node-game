@@ -9,7 +9,9 @@ const canvas = document.querySelector('#canvas-2d')
 const context = canvas.getContext('2d')
 const startBtn = document.querySelector('#start-button')
 const playerImage = document.querySelector('#player-image')
-const movement = {}
+
+let movement = {}
+let touches = {}
 
 /**
  * ゲームを開始する
@@ -45,12 +47,61 @@ function keyHandler (event) {
 }
 
 /**
- * キーイベント
+ * タッチスタート
+ * @param {*} event 
+ */
+function touchStartHandler (event) {
+  socket.emit('shoot')
+  movement.forward = true
+  Array.from(event.changedTouches).forEach(touch => {
+    touches[touch.identifier] = {
+      pageX: touch.pageX,
+      pageY: touch.pageY,
+    }
+  })
+  event.preventDefault()
+}
+
+/**
+ * タッチムーブ
+ * @param {*} event 
+ */
+function touchMoveHandler (event) {
+  movement.right = false
+  movement.left = false
+  Array.from(event.touches).forEach(touch => {
+    const startTouch = touches[touch.identifier]
+    movement.right |= touch.pageX - startTouch.pageX > 30
+    movement.left |= touch.pageX - startTouch.pageY < -30
+  })
+  socket.emit('movement', movement)
+  event.preventDefault()
+}
+
+/**
+ * タッチエンド
+ * @param {*} event 
+ */
+function touchEndHandler (event) {
+  Array.from(event.changedTouches).forEach(touch => {
+    delete touches[touch.identifier]
+  })
+  if (Object.keys(touches).length === 0) {
+    movement = {}
+    socket.emit('movement', movement)
+  }
+  event.preventDefault()
+}
+
+/**
+ * イベントリスナー
  */
 startBtn.addEventListener('click', gameStart)
-// socket.on('connect', gameStart)
 document.addEventListener('keydown', keyHandler)
 document.addEventListener('keyup', keyHandler)
+canvas.addEventListener('touchstart', touchStartHandler)
+canvas.addEventListener('touchmove', touchMoveHandler)
+canvas.addEventListener('touchend', touchEndHandler)
 
 /**
  * サーバーとの通信
@@ -64,7 +115,6 @@ socket.on('state', (players, bullets, walls) => {
   context.stroke()
 
   Object.values(players).forEach((player) => {
-    console.log(player)
     context.save()
     context.font = '20px Bold Arial'
     context.fillText(player.nickname, player.x, player.y + player.height + 25)
