@@ -1,13 +1,14 @@
 {
   "name": "node-game",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.jsとsocket.ioでオンラインゲームを作る",
+  "main": "server.js",
   "scripts": {
-    "server": "node server.js"
+    "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "engines": {
+    "node": "9.8.0"
+  },
   "dependencies": {
     "express": "^4.16.4",
     "socket.io": "^2.2.0"

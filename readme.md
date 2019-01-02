@@ -1,6 +1,6 @@
 # Node.jsとsocket.ioでオンラインゲームを作る
 ```
-npm run server
+npm run start
 ```
 
 ## 参考
