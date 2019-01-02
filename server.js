@@ -253,6 +253,8 @@ app.use('/static', express.static(`${__dirname}/static`))
  * ルートにアクセスした時の処理
  */
 app.get('/', (req, res) => res.sendFile(path.join(`${__dirname}/static/index.html`)))
+app.get('/2d.html', (req, res) => res.sendFile(path.join(`${__dirname}/static/2d.html`)))
+app.get('/3d.html', (req, res) => res.sendFile(path.join(`${__dirname}/static/3d.html`)))
 
 /**
  * サーバーを起動

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BATTLE GAME</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/socket.io.js"></script>
+    <script src="/static/js/three.min.js"></script>
+  </head>
+  <body style="flex-direction: column;">
+    <div>
+        <canvas id="canvas-2d" width="1000" height="1000" style="position: absolute; width: 100%; height: 100%; z-index:3;object-fit: contain;"></canvas>
+      <canvas id="canvas-3d" width="1000" height="1000" style="position: absolute; width: 100%; height: 100%; z-index:2;object-fit: contain;"></canvas>
+      <div class="btn" id="start-button">START</div>
+    </div>
+    <img id="player-image" src="/static/images/c.jpg" style="display: none;">
+    <script src="/static/js/game3d.js"></script>
+  </body>
+</html>
