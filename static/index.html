@@ -6,9 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BATTLE GAME</title>
     <link rel="stylesheet" href="/static/css/index.css">
+    <style>
+      .start-btn {
+        width: 140px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        background-color: #4ca2d6;
+        border-radius: 5px;
+        margin: 10px;
+        opacity: 1;
+        transition: 0.3s;
+      }
+      .start-btn:hover {
+        opacity: 0.6;
+      }
+    </style>
     <script src="/static/js/socket.io.js"></script>
   </head>
   <body style="justify-content: center; align-items: center;">
-    <a href="/2d.html">2d</a> | <a href="/3d.html">3d</a>
+    <a class="start-btn" href="/2d.html">2d</a>
+    <a class="start-btn" href="/3d.html">3d</a>
   </body>
 </html>
